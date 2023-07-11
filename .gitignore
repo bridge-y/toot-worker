@@ -33,3 +33,6 @@ Cargo.lock
 *.pdb
 
 # End of https://www.toptal.com/developers/gitignore/api/linux,Rust
+
+.dev.vars
+node_modules/
