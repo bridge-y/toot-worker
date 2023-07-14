@@ -1,47 +1,56 @@
-# Template: worker-rust
+# Toot Worker
 
-[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/cloudflare/templates/tree/main/worker-rust)
+Toot Worker is a Cloudflare Workers application that enables posting to Mastodon using a Webhook-like mechanism.
 
-A template for kick starting a Cloudflare worker project using [`workers-rs`](https://github.com/cloudflare/workers-rs).
+## Description
 
-This template is designed for compiling Rust to WebAssembly and publishing the resulting worker to Cloudflare's [edge infrastructure](https://www.cloudflare.com/network/).
+Toot Worker is a lightweight and efficient application built with Rust and Cloudflare Workers. It provides a simple and secure way to post content directly to your Mastodon instance using a POST request.
+
+## Features
+
+- **Webhook-like functionality**: Toot Worker acts as a Webhook, allowing you to send POST requests with the desired content to a specified URL, which will then be posted to your Mastodon instance.
+- **Cloudflare Workers**: Powered by Cloudflare Workers, Toot Worker ensures scalability, reliability, and low-latency performance.
+- **Rust implementation**: Toot Worker is implemented in Rust, a fast and memory-safe programming language, ensuring high performance and security.
+- **Post-only functionality**: Toot Worker focuses solely on the posting feature, making it lightweight and straightforward.
 
 ## Setup
 
-To create a `my-project` directory using this template, run:
+1. Create your project by clicking on `Use this template` button (or fork this repository) and clone into your local host.
 
-```sh
-$ npm init cloudflare my-project worker-rust
-# or
-$ yarn create cloudflare my-project worker-rust
-# or
-$ pnpm create cloudflare my-project worker-rust
-```
+2. Run the following commands.
 
-> **Note:** Each command invokes [`create-cloudflare`](https://www.npmjs.com/package/create-cloudflare) for project creation.
+   ```bash
+   npx wrangler dev
+
+   # deploy your worker globally to Cloudflare Workers.
+   npx wrangler publish
+   ```
+
+3. Set up the required secrets.
+
+   Run the following command:
+
+   ```bash
+   npx wrangler put <secret>
+   ```
+
+   Secrets:
+
+   - `BASE_URL`: The URL of your Mastodon instance (e.g. https://mstdn.example.com).
+   - `TOOT_PATH`: A randomly generated value.
+   - `TOKEN`: The access token of your mastodon account.  
+      Please refer to this page: [Obtaining client app access - Mastodon documentation](https://docs.joinmastodon.org/client/token/)
 
 ## Usage
 
-This template starts you off with a `src/lib.rs` file, acting as an entrypoint for requests hitting your Worker. Feel free to add more code in this file, or create Rust modules anywhere else for this project to use.
-
-With `wrangler`, you can build, test, and deploy your Worker with the following commands:
-
-```sh
-# run your Worker in an ideal development workflow (with a local server, file watcher & more)
-$ npm run dev
-
-# deploy your Worker globally to the Cloudflare network (update your wrangler.toml file for configuration)
-$ npm run deploy
+```bash
+curl -X POST -d '{"text": "test"}' -H "Content-Type: application/json" https://<your worker domain>/<TOOT_PATH>
 ```
 
-Read the latest `worker` crate documentation here: https://docs.rs/worker
+## License
 
-## WebAssembly
+This project is licensed under the MIT License.
 
-`workers-rs` (the Rust SDK for Cloudflare Workers used in this template) is meant to be executed as compiled WebAssembly, and as such so **must** all the code you write and depend upon. All crates and modules used in Rust-based Workers projects have to compile to the `wasm32-unknown-unknown` triple.
+## Disclaimer
 
-Read more about this on the [`workers-rs`](https://github.com/cloudflare/workers-rs) project README.
-
-## Issues
-
-If you have any problems with the `worker` crate, please open an issue on the upstream project issue tracker on the [`workers-rs` repository](https://github.com/cloudflare/workers-rs).
+Toot Worker is a third-party application and is not affiliated with Mastodon or Cloudflare. Use it at your own risk.
