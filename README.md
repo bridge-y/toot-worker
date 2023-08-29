@@ -15,26 +15,11 @@ Toot Worker is a lightweight and efficient application built with Rust and Cloud
 
 ## Setup
 
-1. Create your project by clicking on `Use this template` button (or fork this repository) and clone into your local host.
+1. Click the button below and follow the on-screen instructions to proceed with the setup.
 
-2. Run the following commands.
+   [![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/bridge-y/toot-worker)
 
-   ```bash
-   npx wrangler dev
-
-   # deploy your worker globally to Cloudflare Workers.
-   npx wrangler publish
-   ```
-
-3. Set up the required secrets.
-
-   Run the following command:
-
-   ```bash
-   npx wrangler put <secret>
-   ```
-
-   Secrets:
+2. On the Cloudflare Workers dashboard, register the following secrets as variables.
 
    - `BASE_URL`: The URL of your Mastodon instance (e.g. https://mstdn.example.com).
    - `TOOT_PATH`: A randomly generated value.
